@@ -1,0 +1,157 @@
+import os
+
+# Configuration from config.yaml
+configfile: "config.yaml"
+
+# Default configuration with potential overrides from config.yaml
+config = {
+    "sample_ids": "/mfs/gdouglas/projects/honey_bee/insertion_seq/test_SRRs.txt",
+    "bowtie2_db": "/mfs/gdouglas/projects/honey_bee/helpful_bee/honeybee_microbiota_pangenome/bowtie2_indices/all_species_pangenome_reference",
+    "pseudoR_folder": "/mfs/gdouglas/local/prg/pseudoR",
+    "input_fastq_dir": "/mfs/gdouglas/projects/honey_bee/insertion_seq/test_fastqs",
+    "output_dir": "/mfs/gdouglas/projects/honey_bee/insertion_seq/test_output",
+    "threads": 5,
+    **config
+}
+
+# Read sample IDs from the specified file.
+with open(config["sample_ids"], 'r') as sample_ids_fh:
+    SAMPLES = [line.strip() for line in sample_ids_fh if line.strip()]
+
+# Define the final output files you want to generate
+rule all:
+    input:
+        expand("{output_dir}/{sample_id}/IS_hits_remapped_refids.txt",
+               output_dir=config["output_dir"],
+               sample_id=SAMPLES)
+
+# Initial read mapping with bowtie2
+rule initial_mapping:
+    input:
+        r1=lambda wildcards: f"{config['input_fastq_dir']}/{wildcards.sample_id}_paired.1.fastq.gz",
+        r2=lambda wildcards: f"{config['input_fastq_dir']}/{wildcards.sample_id}_paired.2.fastq.gz",
+        u1=lambda wildcards: f"{config['input_fastq_dir']}/{wildcards.sample_id}_unpaired.1.fastq.gz",
+        u2=lambda wildcards: f"{config['input_fastq_dir']}/{wildcards.sample_id}_unpaired.2.fastq.gz"
+    output:
+        sam=temp("{output_dir}/{sample_id}/bowtie2_output/{sample_id}.sam"),
+        log="{output_dir}/{sample_id}/bowtie2_output/{sample_id}.initial_mapping_log.txt"
+    params:
+        idx=config["bowtie2_db"]
+    threads: config["threads"]
+    shell:
+        """
+        mkdir -p $(dirname {output.sam})
+        bowtie2 -x {params.idx} -p {threads} \
+        -1 {input.r1} -2 {input.r2} \
+        -U {input.u1} -U {input.u2} \
+        -S {output.sam} 2> {output.log}
+        """
+
+# Convert SAM to sorted BAM
+rule sam_to_sorted_bam:
+    input:
+        sam="{output_dir}/{sample_id}/bowtie2_output/{sample_id}.sam"
+    output:
+        bam=temp("{output_dir}/{sample_id}/bowtie2_output/{sample_id}.bam"),
+        sorted_bam="{output_dir}/{sample_id}/bowtie2_output/{sample_id}.sort.bam",
+        bai="{output_dir}/{sample_id}/bowtie2_output/{sample_id}.sort.bam.bai"
+    threads: config["threads"]
+    shell:
+        """
+        samtools view -Sb --threads {threads} {input.sam} > {output.bam}
+        samtools sort --threads {threads} -m 4G -o {output.sorted_bam} {output.bam}
+        samtools index {output.sorted_bam}
+        """
+
+# Extract and process unmapped reads
+rule process_unmapped_reads:
+    input:
+        bam="{output_dir}/{sample_id}/bowtie2_output/{sample_id}.sort.bam"
+    output:
+        fastq=temp("{output_dir}/{sample_id}/unmapped/{sample_id}.unmapped.fastq"),
+        numbered_fastq="{output_dir}/{sample_id}/unmapped/{sample_id}.unmapped.numbered.fastq",
+        fasta="{output_dir}/{sample_id}/unmapped/{sample_id}.unmapped.fa",
+        split_list="{output_dir}/{sample_id}/unmapped/{sample_id}.unmapped_list.txt"
+    params:
+        split_dir=directory("{output_dir}/{sample_id}/unmapped/{sample_id}.unmapped.fa.split")
+    threads: config["threads"]
+    shell:
+        """
+        mkdir -p $(dirname {output.fastq})
+        mkdir -p {params.split_dir}
+
+        samtools fastq -f 4 {input.bam} | paste - - - - | sort -k1,1 | tr '\t' '\n' > {output.fastq}
+        seqkit replace -p .+ -r "seq_{{nr}}" {output.fastq} > {output.numbered_fastq}
+        seqkit fq2fa {output.numbered_fastq} > {output.fasta}
+        seqkit split2 -p {threads} --force {output.fasta}
+        ls {params.split_dir} > {output.split_list}
+        """
+
+# BLAST unmapped reads
+rule blast_unmapped:
+    input:
+        split_list="{output_dir}/{sample_id}/unmapped/{sample_id}.unmapped_list.txt",
+        fasta="{output_dir}/{sample_id}/unmapped/{sample_id}.unmapped.fa"
+    output:
+        blast_results="{output_dir}/{sample_id}/{sample_id}_unmapped_blast_results.tsv"
+    params:
+        blast_dir=directory("{output_dir}/{sample_id}/unmapped_blast_results"),
+        split_dir="{output_dir}/{sample_id}/unmapped/{sample_id}.unmapped.fa.split",
+        db=config["pseudoR_folder"] + "/IRs.fa"
+    threads: config["threads"]
+    shell:
+        """
+        mkdir -p {params.blast_dir}
+        cat {input.split_list} | xargs -P{threads} -I% blastn \
+            -db {params.db} \
+            -query {params.split_dir}/% \
+            -out {params.blast_dir}/%_blast_results.txt \
+            -num_threads 1 -outfmt 6
+        cat {params.blast_dir}/* > {output.blast_results}
+        """
+
+# Process IS hits and trim reads
+rule process_is_hits:
+    input:
+        blast_results="{output_dir}/{sample_id}/{sample_id}_unmapped_blast_results.tsv",
+        numbered_fastq="{output_dir}/{sample_id}/unmapped/{sample_id}.unmapped.numbered.fastq"
+    output:
+        is_hits="{output_dir}/{sample_id}/{sample_id}_IS_hits.tsv",
+        trimmed_reads="{output_dir}/{sample_id}/{sample_id}_trimmed_reads.tsv",
+        trimmed_fastq="{output_dir}/{sample_id}/{sample_id}_trimmed_reads.fq"
+    params:
+        pseudoR_script=config["pseudoR_folder"] + "/custom_workflow/V9_analysis_fork.R",
+        output_dir=lambda wildcards: f"{config['output_dir']}/{wildcards.sample_id}"
+    shell:
+        """
+        cut -f1 {input.blast_results} | \
+        seqkit grep -f - {input.numbered_fastq} | \
+        seqkit fx2tab > {output.is_hits}
+        
+        timeout 20m Rscript --vanilla {params.pseudoR_script} \
+            {params.output_dir} {wildcards.sample_id}
+            
+        seqkit tab2fx {output.trimmed_reads} > {output.trimmed_fastq}
+        """
+
+# Final mapping of trimmed reads
+rule map_trimmed_reads:
+    input:
+        trimmed_reads="{output_dir}/{sample_id}/{sample_id}_trimmed_reads.fq"
+    output:
+        bam="{output_dir}/{sample_id}/bowtie2_output/{sample_id}.IS_hits_remapped.bam",
+        log="{output_dir}/{sample_id}/bowtie2_output/{sample_id}.IS_hits_remapped_log.txt",
+        refids="{output_dir}/{sample_id}/IS_hits_remapped_refids.txt"
+    params:
+        idx=config["bowtie2_db"]
+    threads: config["threads"]
+    shell:
+        """
+        bowtie2 -x {params.idx} -p {threads} --very-sensitive \
+        -U {input.trimmed_reads} \
+        2> {output.log} | \
+        samtools view --threads {threads} -Sb -o {output.bam}
+        
+        samtools view -F 4 {output.bam} | \
+        cut -f3 | sort | uniq > {output.refids}
+        """

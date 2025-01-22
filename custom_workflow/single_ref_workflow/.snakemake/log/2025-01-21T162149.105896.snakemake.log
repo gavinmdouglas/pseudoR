@@ -1,0 +1,3 @@
+WorkflowError in file /mfs/gdouglas/local/prg/pseudoR/custom_workflow/single_ref_workflow/Snakefile, line 4:
+Workflow defines configfile config.yaml but it is not present or accessible (full checked path: /mfs/gdouglas/local/prg/pseudoR/custom_workflow/single_ref_workflow/config.yaml).
+  File "/mfs/gdouglas/local/prg/pseudoR/custom_workflow/single_ref_workflow/Snakefile", line 4, in <module>

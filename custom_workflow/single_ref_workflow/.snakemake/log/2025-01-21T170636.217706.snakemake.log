@@ -1,0 +1,303 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 3
+Rules claiming more threads will be scaled down.
+Job stats:
+job                       count
+----------------------  -------
+all                           1
+blast_unmapped                3
+initial_mapping               3
+map_trimmed_reads             3
+process_is_hits               3
+process_unmapped_reads        3
+sam_to_sorted_bam             3
+total                        19
+
+Select jobs to execute...
+
+[Tue Jan 21 17:06:37 2025]
+rule initial_mapping:
+    input: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_fastqs/SRR7287197_paired.1.fastq.gz, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_fastqs/SRR7287197_paired.2.fastq.gz, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_fastqs/SRR7287197_unpaired.1.fastq.gz, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_fastqs/SRR7287197_unpaired.2.fastq.gz
+    output: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/bowtie2_output/SRR7287197.sam, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/bowtie2_output/SRR7287197.initial_mapping_log.txt
+    jobid: 12
+    reason: Missing output files: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/bowtie2_output/SRR7287197.sam
+    wildcards: output_dir=/mfs/gdouglas/projects/honey_bee/insertion_seq/test_output, sample_id=SRR7287197
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Tue Jan 21 17:21:12 2025]
+Finished job 12.
+1 of 19 steps (5%) done
+Select jobs to execute...
+
+[Tue Jan 21 17:21:12 2025]
+rule sam_to_sorted_bam:
+    input: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/bowtie2_output/SRR7287197.sam
+    output: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/bowtie2_output/SRR7287197.bam, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/bowtie2_output/SRR7287197.sort.bam, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/bowtie2_output/SRR7287197.sort.bam.bai
+    jobid: 11
+    reason: Missing output files: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/bowtie2_output/SRR7287197.sort.bam; Input files updated by another job: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/bowtie2_output/SRR7287197.sam
+    wildcards: output_dir=/mfs/gdouglas/projects/honey_bee/insertion_seq/test_output, sample_id=SRR7287197
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Tue Jan 21 17:24:52 2025]
+Finished job 11.
+2 of 19 steps (11%) done
+Removing temporary output /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/bowtie2_output/SRR7287197.sam.
+Removing temporary output /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/bowtie2_output/SRR7287197.bam.
+Select jobs to execute...
+
+[Tue Jan 21 17:24:54 2025]
+rule initial_mapping:
+    input: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_fastqs/SRR7287198_paired.1.fastq.gz, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_fastqs/SRR7287198_paired.2.fastq.gz, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_fastqs/SRR7287198_unpaired.1.fastq.gz, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_fastqs/SRR7287198_unpaired.2.fastq.gz
+    output: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/bowtie2_output/SRR7287198.sam, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/bowtie2_output/SRR7287198.initial_mapping_log.txt
+    jobid: 18
+    reason: Missing output files: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/bowtie2_output/SRR7287198.sam
+    wildcards: output_dir=/mfs/gdouglas/projects/honey_bee/insertion_seq/test_output, sample_id=SRR7287198
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Tue Jan 21 17:45:14 2025]
+Finished job 18.
+3 of 19 steps (16%) done
+Select jobs to execute...
+
+[Tue Jan 21 17:45:14 2025]
+rule sam_to_sorted_bam:
+    input: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/bowtie2_output/SRR7287198.sam
+    output: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/bowtie2_output/SRR7287198.bam, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/bowtie2_output/SRR7287198.sort.bam, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/bowtie2_output/SRR7287198.sort.bam.bai
+    jobid: 17
+    reason: Missing output files: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/bowtie2_output/SRR7287198.sort.bam; Input files updated by another job: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/bowtie2_output/SRR7287198.sam
+    wildcards: output_dir=/mfs/gdouglas/projects/honey_bee/insertion_seq/test_output, sample_id=SRR7287198
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Tue Jan 21 17:48:32 2025]
+Finished job 17.
+4 of 19 steps (21%) done
+Removing temporary output /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/bowtie2_output/SRR7287198.sam.
+Removing temporary output /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/bowtie2_output/SRR7287198.bam.
+Select jobs to execute...
+
+[Tue Jan 21 17:48:34 2025]
+rule process_unmapped_reads:
+    input: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/bowtie2_output/SRR7287197.sort.bam
+    output: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/unmapped/SRR7287197.unmapped.fastq, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/unmapped/SRR7287197.unmapped.numbered.fastq, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/unmapped/SRR7287197.unmapped.fa, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/unmapped/SRR7287197.unmapped_list.txt
+    jobid: 10
+    reason: Missing output files: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/unmapped/SRR7287197.unmapped_list.txt, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/unmapped/SRR7287197.unmapped.numbered.fastq, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/unmapped/SRR7287197.unmapped.fa; Input files updated by another job: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/bowtie2_output/SRR7287197.sort.bam
+    wildcards: output_dir=/mfs/gdouglas/projects/honey_bee/insertion_seq/test_output, sample_id=SRR7287197
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Tue Jan 21 17:55:10 2025]
+Finished job 10.
+5 of 19 steps (26%) done
+Removing temporary output /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/unmapped/SRR7287197.unmapped.fastq.
+Select jobs to execute...
+
+[Tue Jan 21 17:55:11 2025]
+rule blast_unmapped:
+    input: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/unmapped/SRR7287197.unmapped_list.txt, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/unmapped/SRR7287197.unmapped.fa
+    output: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/SRR7287197_unmapped_blast_results.tsv
+    jobid: 9
+    reason: Missing output files: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/SRR7287197_unmapped_blast_results.tsv; Input files updated by another job: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/unmapped/SRR7287197.unmapped_list.txt, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/unmapped/SRR7287197.unmapped.fa
+    wildcards: output_dir=/mfs/gdouglas/projects/honey_bee/insertion_seq/test_output, sample_id=SRR7287197
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Tue Jan 21 18:07:21 2025]
+Finished job 9.
+6 of 19 steps (32%) done
+Select jobs to execute...
+
+[Tue Jan 21 18:07:21 2025]
+rule initial_mapping:
+    input: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_fastqs/SRR7287196_paired.1.fastq.gz, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_fastqs/SRR7287196_paired.2.fastq.gz, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_fastqs/SRR7287196_unpaired.1.fastq.gz, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_fastqs/SRR7287196_unpaired.2.fastq.gz
+    output: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/bowtie2_output/SRR7287196.sam, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/bowtie2_output/SRR7287196.initial_mapping_log.txt
+    jobid: 6
+    reason: Missing output files: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/bowtie2_output/SRR7287196.sam
+    wildcards: output_dir=/mfs/gdouglas/projects/honey_bee/insertion_seq/test_output, sample_id=SRR7287196
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Tue Jan 21 18:35:23 2025]
+Finished job 6.
+7 of 19 steps (37%) done
+Select jobs to execute...
+
+[Tue Jan 21 18:35:23 2025]
+rule sam_to_sorted_bam:
+    input: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/bowtie2_output/SRR7287196.sam
+    output: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/bowtie2_output/SRR7287196.bam, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/bowtie2_output/SRR7287196.sort.bam, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/bowtie2_output/SRR7287196.sort.bam.bai
+    jobid: 5
+    reason: Missing output files: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/bowtie2_output/SRR7287196.sort.bam; Input files updated by another job: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/bowtie2_output/SRR7287196.sam
+    wildcards: output_dir=/mfs/gdouglas/projects/honey_bee/insertion_seq/test_output, sample_id=SRR7287196
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Tue Jan 21 18:39:30 2025]
+Finished job 5.
+8 of 19 steps (42%) done
+Removing temporary output /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/bowtie2_output/SRR7287196.sam.
+Removing temporary output /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/bowtie2_output/SRR7287196.bam.
+Select jobs to execute...
+
+[Tue Jan 21 18:39:32 2025]
+rule process_unmapped_reads:
+    input: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/bowtie2_output/SRR7287198.sort.bam
+    output: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/unmapped/SRR7287198.unmapped.fastq, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/unmapped/SRR7287198.unmapped.numbered.fastq, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/unmapped/SRR7287198.unmapped.fa, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/unmapped/SRR7287198.unmapped_list.txt
+    jobid: 16
+    reason: Missing output files: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/unmapped/SRR7287198.unmapped_list.txt, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/unmapped/SRR7287198.unmapped.fa, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/unmapped/SRR7287198.unmapped.numbered.fastq; Input files updated by another job: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/bowtie2_output/SRR7287198.sort.bam
+    wildcards: output_dir=/mfs/gdouglas/projects/honey_bee/insertion_seq/test_output, sample_id=SRR7287198
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Tue Jan 21 18:43:49 2025]
+Finished job 16.
+9 of 19 steps (47%) done
+Removing temporary output /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/unmapped/SRR7287198.unmapped.fastq.
+Select jobs to execute...
+
+[Tue Jan 21 18:43:49 2025]
+rule blast_unmapped:
+    input: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/unmapped/SRR7287198.unmapped_list.txt, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/unmapped/SRR7287198.unmapped.fa
+    output: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/SRR7287198_unmapped_blast_results.tsv
+    jobid: 15
+    reason: Missing output files: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/SRR7287198_unmapped_blast_results.tsv; Input files updated by another job: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/unmapped/SRR7287198.unmapped_list.txt, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/unmapped/SRR7287198.unmapped.fa
+    wildcards: output_dir=/mfs/gdouglas/projects/honey_bee/insertion_seq/test_output, sample_id=SRR7287198
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Tue Jan 21 18:52:22 2025]
+Finished job 15.
+10 of 19 steps (53%) done
+Select jobs to execute...
+
+[Tue Jan 21 18:52:22 2025]
+rule process_unmapped_reads:
+    input: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/bowtie2_output/SRR7287196.sort.bam
+    output: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/unmapped/SRR7287196.unmapped.fastq, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/unmapped/SRR7287196.unmapped.numbered.fastq, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/unmapped/SRR7287196.unmapped.fa, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/unmapped/SRR7287196.unmapped_list.txt
+    jobid: 4
+    reason: Missing output files: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/unmapped/SRR7287196.unmapped.fa, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/unmapped/SRR7287196.unmapped_list.txt, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/unmapped/SRR7287196.unmapped.numbered.fastq; Input files updated by another job: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/bowtie2_output/SRR7287196.sort.bam
+    wildcards: output_dir=/mfs/gdouglas/projects/honey_bee/insertion_seq/test_output, sample_id=SRR7287196
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Tue Jan 21 18:56:22 2025]
+Finished job 4.
+11 of 19 steps (58%) done
+Removing temporary output /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/unmapped/SRR7287196.unmapped.fastq.
+Select jobs to execute...
+
+[Tue Jan 21 18:56:23 2025]
+rule blast_unmapped:
+    input: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/unmapped/SRR7287196.unmapped_list.txt, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/unmapped/SRR7287196.unmapped.fa
+    output: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/SRR7287196_unmapped_blast_results.tsv
+    jobid: 3
+    reason: Missing output files: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/SRR7287196_unmapped_blast_results.tsv; Input files updated by another job: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/unmapped/SRR7287196.unmapped.fa, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/unmapped/SRR7287196.unmapped_list.txt
+    wildcards: output_dir=/mfs/gdouglas/projects/honey_bee/insertion_seq/test_output, sample_id=SRR7287196
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Tue Jan 21 19:04:09 2025]
+Finished job 3.
+12 of 19 steps (63%) done
+Select jobs to execute...
+
+[Tue Jan 21 19:04:10 2025]
+rule process_is_hits:
+    input: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/SRR7287198_unmapped_blast_results.tsv, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/unmapped/SRR7287198.unmapped.numbered.fastq
+    output: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/SRR7287198_IS_hits.tsv, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/SRR7287198_trimmed_reads.tsv, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/SRR7287198_trimmed_reads.fq
+    jobid: 14
+    reason: Missing output files: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/SRR7287198_trimmed_reads.fq; Input files updated by another job: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/unmapped/SRR7287198.unmapped.numbered.fastq, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/SRR7287198_unmapped_blast_results.tsv
+    wildcards: output_dir=/mfs/gdouglas/projects/honey_bee/insertion_seq/test_output, sample_id=SRR7287198
+    resources: tmpdir=/tmp
+
+
+[Tue Jan 21 19:04:10 2025]
+rule process_is_hits:
+    input: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/SRR7287197_unmapped_blast_results.tsv, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/unmapped/SRR7287197.unmapped.numbered.fastq
+    output: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/SRR7287197_IS_hits.tsv, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/SRR7287197_trimmed_reads.tsv, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/SRR7287197_trimmed_reads.fq
+    jobid: 8
+    reason: Missing output files: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/SRR7287197_trimmed_reads.fq; Input files updated by another job: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/SRR7287197_unmapped_blast_results.tsv, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/unmapped/SRR7287197.unmapped.numbered.fastq
+    wildcards: output_dir=/mfs/gdouglas/projects/honey_bee/insertion_seq/test_output, sample_id=SRR7287197
+    resources: tmpdir=/tmp
+
+
+[Tue Jan 21 19:04:10 2025]
+rule process_is_hits:
+    input: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/SRR7287196_unmapped_blast_results.tsv, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/unmapped/SRR7287196.unmapped.numbered.fastq
+    output: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/SRR7287196_IS_hits.tsv, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/SRR7287196_trimmed_reads.tsv, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/SRR7287196_trimmed_reads.fq
+    jobid: 2
+    reason: Missing output files: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/SRR7287196_trimmed_reads.fq; Input files updated by another job: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/SRR7287196_unmapped_blast_results.tsv, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/unmapped/SRR7287196.unmapped.numbered.fastq
+    wildcards: output_dir=/mfs/gdouglas/projects/honey_bee/insertion_seq/test_output, sample_id=SRR7287196
+    resources: tmpdir=/tmp
+
+[Tue Jan 21 19:04:23 2025]
+Finished job 2.
+13 of 19 steps (68%) done
+Select jobs to execute...
+[Tue Jan 21 19:04:24 2025]
+Finished job 8.
+14 of 19 steps (74%) done
+[Tue Jan 21 19:05:03 2025]
+Finished job 14.
+15 of 19 steps (79%) done
+
+[Tue Jan 21 19:05:03 2025]
+rule map_trimmed_reads:
+    input: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/SRR7287196_trimmed_reads.fq
+    output: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/bowtie2_output/SRR7287196.IS_hits_remapped.bam, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/bowtie2_output/SRR7287196.IS_hits_remapped_log.txt, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/IS_hits_remapped_refids.txt
+    jobid: 1
+    reason: Missing output files: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/IS_hits_remapped_refids.txt; Input files updated by another job: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/SRR7287196_trimmed_reads.fq
+    wildcards: output_dir=/mfs/gdouglas/projects/honey_bee/insertion_seq/test_output, sample_id=SRR7287196
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Tue Jan 21 19:05:04 2025]
+Finished job 1.
+16 of 19 steps (84%) done
+Select jobs to execute...
+
+[Tue Jan 21 19:05:04 2025]
+rule map_trimmed_reads:
+    input: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/SRR7287198_trimmed_reads.fq
+    output: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/bowtie2_output/SRR7287198.IS_hits_remapped.bam, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/bowtie2_output/SRR7287198.IS_hits_remapped_log.txt, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/IS_hits_remapped_refids.txt
+    jobid: 13
+    reason: Missing output files: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/IS_hits_remapped_refids.txt; Input files updated by another job: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/SRR7287198_trimmed_reads.fq
+    wildcards: output_dir=/mfs/gdouglas/projects/honey_bee/insertion_seq/test_output, sample_id=SRR7287198
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Tue Jan 21 19:05:05 2025]
+Finished job 13.
+17 of 19 steps (89%) done
+Select jobs to execute...
+
+[Tue Jan 21 19:05:05 2025]
+rule map_trimmed_reads:
+    input: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/SRR7287197_trimmed_reads.fq
+    output: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/bowtie2_output/SRR7287197.IS_hits_remapped.bam, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/bowtie2_output/SRR7287197.IS_hits_remapped_log.txt, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/IS_hits_remapped_refids.txt
+    jobid: 7
+    reason: Missing output files: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/IS_hits_remapped_refids.txt; Input files updated by another job: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/SRR7287197_trimmed_reads.fq
+    wildcards: output_dir=/mfs/gdouglas/projects/honey_bee/insertion_seq/test_output, sample_id=SRR7287197
+    threads: 3
+    resources: tmpdir=/tmp
+
+[Tue Jan 21 19:05:06 2025]
+Finished job 7.
+18 of 19 steps (95%) done
+Select jobs to execute...
+
+[Tue Jan 21 19:05:06 2025]
+localrule all:
+    input: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/IS_hits_remapped_refids.txt, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/IS_hits_remapped_refids.txt, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/IS_hits_remapped_refids.txt
+    jobid: 0
+    reason: Input files updated by another job: /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287197/IS_hits_remapped_refids.txt, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287198/IS_hits_remapped_refids.txt, /mfs/gdouglas/projects/honey_bee/insertion_seq/test_output/SRR7287196/IS_hits_remapped_refids.txt
+    resources: tmpdir=/tmp
+
+[Tue Jan 21 19:05:06 2025]
+Finished job 0.
+19 of 19 steps (100%) done
+Complete log: .snakemake/log/2025-01-21T170636.217706.snakemake.log

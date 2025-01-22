@@ -1,0 +1,9 @@
+# Path configurations
+bowtie2_db: "/mfs/gdouglas/projects/honey_bee/helpful_bee/honeybee_microbiota_pangenome/bowtie2_indices/all_species_pangenome_reference"
+pseudoR_folder: "/mfs/gdouglas/local/prg/pseudoR"
+input_fastq_dir: "/mfs/gdouglas/projects/honey_bee/insertion_seq/test_fastqs"
+output_dir: "/mfs/gdouglas/projects/honey_bee/insertion_seq/test_output"
+srr_ids: "/mfs/gdouglas/projects/honey_bee/insertion_seq/test_SRRs.txt"
+
+# Computational resources
+threads: 5
